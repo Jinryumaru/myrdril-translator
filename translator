@@ -1,0 +1,113 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
+const dictionary = {
+  "i": "arai",
+  "me": "arai",
+  "you": "tiran",
+  "he": "ulkan",
+  "she": "ulkan",
+  "it": "ulkan",
+  "we": "valar",
+  "us": "valar",
+  "they": "thurin",
+  "them": "thurin",
+  "is": "serak",
+  "are": "serak",
+  "am": "serak",
+  "have": "moren",
+  "has": "moren",
+  "go": "zulen",
+  "come": "norak",
+  "see": "vilar",
+  "say": "rakor",
+  "know": "silven",
+  "think": "yural",
+  "want": "trelgar",
+  "can": "elmak",
+  "like": "varen",
+  "love": "aeril",
+  "hate": "kragul",
+  "make": "durok",
+  "build": "durok",
+  "break": "fragul",
+  "destroy": "fragul",
+  "run": "skaleth",
+  "walk": "meldor",
+  "sleep": "dormek",
+  "wake": "narok",
+  "day": "soel",
+  "morning": "finuar",
+  "evening": "lomur",
+  "yes": "thor",
+  "no": "nahr",
+  "please": "vinal",
+  "thank": "merath",
+  "hello": "shalen",
+  "goodbye": "thirak",
+  "help": "askor",
+  "danger": "grelak",
+  "safe": "kareth",
+  "now": "ilun",
+  "later": "doran",
+  "before": "kelur",
+  "always": "venar",
+  "never": "nurak",
+  "because": "shural",
+  "if": "lenath",
+  "and": "mir",
+  "or": "zul",
+  "but": "nor",
+  "with": "halen",
+  "without": "nalen",
+  "in": "dorûn",
+  "on": "sharûn",
+  "under": "grothûn",
+  "behind": "dorath",
+  "for": "venath",
+  "of": "selar",
+  "from": "kelar",
+  "to": "ralen"
+};
+
+function translateToMyrdril(text) {
+  return text
+    .toLowerCase()
+    .split(/\s+/)
+    .map(word => dictionary[word] || `[${word}]`)
+    .join(" ");
+}
+
+export default function MyrdrilTranslator() {
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+
+  const handleTranslate = () => {
+    const translation = translateToMyrdril(input);
+    setOutput(translation);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Myrdril Translator</h1>
+      <Card className="mb-4">
+        <CardContent className="space-y-4 pt-4">
+          <Textarea
+            placeholder="Enter English text..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <Button onClick={handleTranslate}>Translate</Button>
+          <Textarea
+            placeholder="Myrdril translation..."
+            value={output}
+            readOnly
+          />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
